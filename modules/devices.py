@@ -55,8 +55,11 @@ def get_device_for(task):
     return get_optimal_device()
 
 
-def torch_gc():
+def torch_gc(force=False):
+    if not force:
+        return
     if torch.cuda.is_available():
+        print("######## GARBAGE")
         with torch.cuda.device(get_cuda_device_string()):
             torch.cuda.empty_cache()
             torch.cuda.ipc_collect()
