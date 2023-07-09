@@ -443,7 +443,7 @@ def load_model(checkpoint_info=None, already_loaded_state_dict=None):
         sd_hijack.model_hijack.undo_hijack(model_data.sd_model)
         model_data.sd_model = None
         gc.collect()
-        devices.torch_gc()
+        devices.torch_gc(force=True)
 
     do_inpainting_hijack()
 
@@ -584,7 +584,7 @@ def unload_model_weights(sd_model=None, info=None):
         model_data.sd_model = None
         sd_model = None
         gc.collect()
-        devices.torch_gc()
+        devices.torch_gc(force=True)
         torch.cuda.empty_cache()
 
     print(f"Unloaded weights {timer.summary()}.")
